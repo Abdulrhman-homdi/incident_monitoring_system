@@ -4,17 +4,14 @@ import 'main_shell.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  // Controllers
   final TextEditingController _usernameController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
 
-  // دالة تسجيل الدخول
   void _handleLogin(BuildContext context) {
     String username = _usernameController.text.trim();
     String password = _passwordController.text.trim();
 
-    // تحقق تجريبي
     if (username == "admin" && password == "123456") {
       Navigator.pushReplacement(
         context,
@@ -30,7 +27,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).cardColor,
 
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -64,7 +61,6 @@ class LoginScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
 
-            // الشعار
             Center(
               child: Column(
                 children: [
@@ -107,12 +103,12 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const Text(
+                  Text(
                     "Name of Municipality in English",
 
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontFamily: 'IBMPlexSansArabic',
                     ),
                   ),
@@ -122,7 +118,6 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // العنوان
             const Text(
               "تسجيل الدخول",
 
@@ -133,21 +128,21 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
 
-            const Text(
+            Text(
               "يجب عليك تسجيل الدخول في منصة مراقبة البلاغات",
 
               style: TextStyle(
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontFamily: 'IBMPlexSansArabic',
               ),
             ),
 
             const SizedBox(height: 32),
 
-            // اسم المستخدم
             _buildLabel("اسم المستخدم"),
 
             _buildTextField(
+              context: context,
               controller: _usernameController,
               hint: "ادخل اسم المستخدم الخاص بك",
               icon: Icons.person_outline,
@@ -155,10 +150,10 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // كلمة المرور
             _buildLabel("كلمة المرور"),
 
             _buildTextField(
+              context: context,
               controller: _passwordController,
               hint: "ادخل كلمة المرور الخاصة بك",
               icon: Icons.lock_outline,
@@ -167,7 +162,6 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // زر تسجيل الدخول
             SizedBox(
               width: double.infinity,
               height: 56,
@@ -187,12 +181,12 @@ class LoginScreen extends StatelessWidget {
                   elevation: 0,
                 ),
 
-                child: const Text(
+                child: Text(
                   "تسجيل الدخول",
 
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'IBMPlexSansArabic',
                   ),
@@ -202,12 +196,12 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            const Center(
+            Center(
               child: Text(
                 "أو",
 
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   fontFamily: 'IBMPlexSansArabic',
                 ),
               ),
@@ -215,16 +209,15 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // الدخول كزائر
             Center(
               child: TextButton(
                 onPressed: () {},
 
-                child: const Text(
+                child: Text(
                   "الدخول كزائر",
 
                   style: TextStyle(
-                    color: Colors.black87,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 16,
                     fontFamily: 'IBMPlexSansArabic',
                   ),
@@ -239,7 +232,6 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  // Label
   Widget _buildLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -255,8 +247,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  // TextField
   Widget _buildTextField({
+    required BuildContext context,
     required TextEditingController controller,
     required String hint,
     required IconData icon,
@@ -272,13 +264,13 @@ class LoginScreen extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
 
-        hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
+        hintStyle: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
 
-        suffixIcon: Icon(icon, color: Colors.grey),
+        suffixIcon: Icon(icon, color: Theme.of(context).colorScheme.onSurfaceVariant),
 
         filled: true,
 
-        fillColor: const Color(0xFFF5F5F5),
+        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
 
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

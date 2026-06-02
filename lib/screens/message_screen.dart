@@ -13,7 +13,7 @@ class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: const Color(0xFF2D9373),
         foregroundColor: Colors.white,
@@ -135,7 +135,7 @@ class _MessageBubble extends StatelessWidget {
               fontSize: 11,
               fontWeight: FontWeight.w600,
               fontFamily: 'IBMPlexSansArabic',
-              color: isMe ? const Color(0xFF2D9373) : const Color(0xFF6B7280),
+              color: isMe ? const Color(0xFF2D9373) : Theme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: 4),
@@ -147,7 +147,7 @@ class _MessageBubble extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: isMe ? const Color(0xFF2D9373) : Colors.white,
+                    color: isMe ? const Color(0xFF2D9373) : Theme.of(context).cardColor,
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(12),
                       topRight: const Radius.circular(12),
@@ -156,10 +156,10 @@ class _MessageBubble extends StatelessWidget {
                     ),
                     border: isMe
                         ? null
-                        : Border.all(color: const Color(0xFFE5E7EB)),
+                        : Border.all(color: Theme.of(context).dividerColor),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.03),
+                        color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
                         blurRadius: 6,
                         offset: const Offset(0, 2),
                       ),
@@ -173,7 +173,7 @@ class _MessageBubble extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'IBMPlexSansArabic',
-                          color: isMe ? Colors.white : const Color(0xFF111827),
+                          color: isMe ? Colors.white : Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -184,7 +184,7 @@ class _MessageBubble extends StatelessWidget {
                           fontFamily: 'IBMPlexSansArabic',
                           color: isMe
                               ? Colors.white.withOpacity(0.7)
-                              : const Color(0xFF9CA3AF),
+                              : Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -213,15 +213,15 @@ class _DateSeparator extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           decoration: BoxDecoration(
-            color: const Color(0xFFF3F4F6),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Text(
             date,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               fontFamily: 'IBMPlexSansArabic',
-              color: Color(0xFF6B7280),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -237,7 +237,7 @@ class _MessageInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       child: SafeArea(
         top: false,
@@ -263,10 +263,10 @@ class _MessageInput extends StatelessWidget {
                   hintStyle: TextStyle(
                     fontFamily: 'IBMPlexSansArabic',
                     fontSize: 14,
-                    color: const Color(0xFF9CA3AF),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                   ),
                   filled: true,
-                  fillColor: const Color(0xFFF3F4F6),
+                  fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,

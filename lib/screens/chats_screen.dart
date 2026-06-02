@@ -73,7 +73,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -86,9 +86,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: _chats.length,
-                separatorBuilder: (_, __) => const Divider(
+                separatorBuilder: (_, __) => Divider(
                   height: 1,
-                  color: Color(0xFFEAEAEA),
+                  color: Theme.of(context).dividerColor,
                 ),
                 itemBuilder: (context, index) {
                   final chat = _chats[index];
@@ -139,7 +139,7 @@ class _SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
       child: TextField(
         textAlign: TextAlign.right,
@@ -149,14 +149,14 @@ class _SearchBar extends StatelessWidget {
           hintStyle: TextStyle(
             fontFamily: 'IBMPlexSansArabic',
             fontSize: 14,
-            color: const Color(0xFF9CA3AF),
+            color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
           ),
           suffixIcon: Icon(
             Icons.search,
-            color: const Color(0xFF9CA3AF),
+            color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
           ),
           filled: true,
-          fillColor: const Color(0xFFF3F4F6),
+          fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,
@@ -180,7 +180,7 @@ class _FilterTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -222,7 +222,7 @@ class _FilterButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isActive ? const Color(0xFF2D9373) : const Color(0xFFF3F4F6),
+          color: isActive ? const Color(0xFF2D9373) : Theme.of(context).colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -231,7 +231,7 @@ class _FilterButton extends StatelessWidget {
             fontSize: 14,
             fontWeight: FontWeight.w600,
             fontFamily: 'IBMPlexSansArabic',
-            color: isActive ? Colors.white : const Color(0xFF6B7280),
+            color: isActive ? Colors.white : Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
       ),
@@ -248,7 +248,7 @@ class _ChatItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 14),
-      color: const Color(0xFFF9F9F9),
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Row(
@@ -267,20 +267,20 @@ class _ChatItem extends StatelessWidget {
                     children: [
                       Text(
                         chat.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                           fontFamily: 'IBMPlexSansArabic',
-                          color: Color(0xFF111827),
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                       const Spacer(),
                       Text(
                         chat.time,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 11,
                           fontFamily: 'IBMPlexSansArabic',
-                          color: Color(0xFF9CA3AF),
+                          color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -312,10 +312,10 @@ class _ChatItem extends StatelessWidget {
                       Expanded(
                         child: Text(
                           chat.message,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'IBMPlexSansArabic',
-                            color: Color(0xFF6B7280),
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

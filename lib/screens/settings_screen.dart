@@ -8,22 +8,22 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'الإعدادات',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
             fontFamily: 'IBMPlexSansArabic',
-            color: Color(0xFF111827),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_forward_ios, color: Color(0xFF111827), size: 20),
+          icon: Icon(Icons.arrow_forward_ios, color: Theme.of(context).colorScheme.onSurface, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -36,13 +36,13 @@ class SettingsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text(
+                    Text(
                       'المظهر',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'IBMPlexSansArabic',
-                        color: Color(0xFF111827),
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -78,11 +78,11 @@ class _ThemeSelectorState extends State<_ThemeSelector> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -98,7 +98,7 @@ class _ThemeSelectorState extends State<_ThemeSelector> {
             selected: _selected == 0,
             onTap: () => _select(0),
           ),
-          const Divider(height: 24, color: Color(0xFFF3F4F6)),
+          Divider(height: 24, color: Theme.of(context).dividerColor),
           _ThemeOption(
             icon: Icons.sunny,
             title: 'فاتح',
@@ -107,7 +107,7 @@ class _ThemeSelectorState extends State<_ThemeSelector> {
             selected: _selected == 1,
             onTap: () => _select(1),
           ),
-          const Divider(height: 24, color: Color(0xFFF3F4F6)),
+          Divider(height: 24, color: Theme.of(context).dividerColor),
           _ThemeOption(
             icon: Icons.dark_mode,
             title: 'داكن',
@@ -166,7 +166,7 @@ class _ThemeOption extends StatelessWidget {
               onChanged: (_) => onTap(),
               activeColor: const Color(0xFF2D9373),
             ),
-            Icon(icon, color: const Color(0xFF6B7280), size: 24),
+            Icon(icon, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 24),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -174,19 +174,19 @@ class _ThemeOption extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'IBMPlexSansArabic',
-                      color: Color(0xFF111827),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       fontFamily: 'IBMPlexSansArabic',
-                      color: Color(0xFF9CA3AF),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                     ),
                   ),
                 ],

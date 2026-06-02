@@ -7,21 +7,21 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            const _TopBar(),
+            _TopBar(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: const Column(
+                child: Column(
                   children: [
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _ProfileCard(),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _KpiRow(),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     _DataSection(),
                   ],
                 ),
@@ -40,7 +40,7 @@ class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       child: Column(
         children: [
           Padding(
@@ -56,20 +56,20 @@ class _TopBar extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.settings_outlined,
-                    color: Color(0xFF6B7280),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     size: 26,
                   ),
                 ),
                 const Spacer(),
-                const Text(
+                Text(
                   'معلوماتي',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'IBMPlexSansArabic',
-                    color: Color(0xFF111827),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ],
@@ -86,14 +86,14 @@ class _TopBar extends StatelessWidget {
                 hintStyle: TextStyle(
                   fontFamily: 'IBMPlexSansArabic',
                   fontSize: 14,
-                  color: const Color(0xFF9CA3AF),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                 ),
                 suffixIcon: Icon(
                   Icons.search,
-                  color: const Color(0xFF9CA3AF),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                 ),
                 filled: true,
-                fillColor: const Color(0xFFF3F4F6),
+                fillColor: Theme.of(context).dividerColor,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -120,11 +120,11 @@ class _ProfileCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -142,22 +142,22 @@ class _ProfileCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'تركي بن عبدالرحمن',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               fontFamily: 'IBMPlexSansArabic',
-              color: Color(0xFF111827),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
+          Text(
             'رقم الموظف : 11022',
             style: TextStyle(
               fontSize: 14,
               fontFamily: 'IBMPlexSansArabic',
-              color: Color(0xFF6B7280),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
         ],
@@ -213,11 +213,11 @@ class _KpiCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -228,10 +228,10 @@ class _KpiCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               fontFamily: 'IBMPlexSansArabic',
-              color: Color(0xFF6B7280),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: 8),
@@ -264,10 +264,10 @@ class _KpiCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             footer,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 11,
               fontFamily: 'IBMPlexSansArabic',
-              color: Color(0xFF9CA3AF),
+              color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
             ),
           ),
         ],
@@ -284,13 +284,13 @@ class _DataSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const Text(
+        Text(
           'بياناتي',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
             fontFamily: 'IBMPlexSansArabic',
-            color: Color(0xFF111827),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 12),
@@ -312,11 +312,11 @@ class _ContactCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -334,39 +334,39 @@ class _ContactCard extends StatelessWidget {
                 color: const Color(0xFF2D9373),
               ),
               const SizedBox(width: 8),
-              const Text(
+              Text(
                 'أرقام التواصل الشخصية',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'IBMPlexSansArabic',
-                  color: Color(0xFF111827),
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          const Divider(height: 1, color: Color(0xFFF3F4F6)),
+          Divider(height: 1, color: Theme.of(context).dividerColor),
           const SizedBox(height: 12),
           Row(
             children: [
-              const Text(
+              Text(
                 '055 444 8888',
                 textDirection: TextDirection.ltr,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'IBMPlexSansArabic',
-                  color: Color(0xFF111827),
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               const Spacer(),
-              const Text(
+              Text(
                 'الرقم المسجل',
                 style: TextStyle(
                   fontSize: 13,
                   fontFamily: 'IBMPlexSansArabic',
-                  color: Color(0xFF6B7280),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
             ],
@@ -386,11 +386,11 @@ class _AddressCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -408,21 +408,21 @@ class _AddressCard extends StatelessWidget {
                 color: const Color(0xFF2D9373),
               ),
               const SizedBox(width: 8),
-              const Text(
+              Text(
                 'العنوان الوطني',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'IBMPlexSansArabic',
-                  color: Color(0xFF111827),
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          const Divider(height: 1, color: Color(0xFFF3F4F6)),
+          Divider(height: 1, color: Theme.of(context).dividerColor),
           const SizedBox(height: 12),
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: Text(
@@ -433,17 +433,17 @@ class _AddressCard extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'IBMPlexSansArabic',
-                    color: Color(0xFF111827),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Text(
                 'العنوان الأول',
                 style: TextStyle(
                   fontSize: 13,
                   fontFamily: 'IBMPlexSansArabic',
-                  color: Color(0xFF6B7280),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
             ],

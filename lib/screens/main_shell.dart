@@ -24,16 +24,16 @@ class _MainShellState extends State<MainShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               height: 74,
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               child: Row(
                 children: [
                   _NavItem(
@@ -98,7 +98,7 @@ class _NavItem extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             border: Border(
               top: BorderSide(
                 color: isActive

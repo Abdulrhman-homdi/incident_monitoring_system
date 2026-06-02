@@ -20,7 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    // تشغيل حركة الشعار
     Future.delayed(const Duration(milliseconds: 100), () {
       if (!mounted) return;
 
@@ -29,7 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
 
-    // الانتقال إلى صفحة تسجيل الدخول
     _navigationTimer = Timer(const Duration(seconds: 3), () {
       if (!mounted) return;
 
@@ -59,14 +57,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).cardColor,
 
       body: SafeArea(
         child: Column(
           children: [
             const Spacer(),
 
-            // الشعار المتحرك
             Center(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 1000),
@@ -91,7 +88,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const Spacer(),
 
-            // النصوص
             const Text(
               "اسم الأمانة باللغة العربية",
 
@@ -104,12 +100,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const SizedBox(height: 4),
 
-            const Text(
+            Text(
               "Name of Municipality in English",
 
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black54,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontFamily: 'IBMPlexSansArabic',
               ),
             ),

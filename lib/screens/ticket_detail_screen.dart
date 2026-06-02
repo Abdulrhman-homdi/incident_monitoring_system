@@ -11,22 +11,22 @@ class TicketDetailScreen extends StatelessWidget {
     final statusColor = Ticket.colorForStatus(ticket.status);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'تفاصيل البلاغ',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w700,
             fontFamily: 'IBMPlexSansArabic',
-            color: Color(0xFF111827),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_forward_ios, color: Color(0xFF111827), size: 18),
+          icon: Icon(Icons.arrow_forward_ios, color: Theme.of(context).colorScheme.onSurface, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -41,7 +41,7 @@ class TicketDetailScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 280,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE5E7EB),
+                    color: Theme.of(context).dividerColor,
                     image: DecorationImage(
                       image: NetworkImage(ticket.imageUrl),
                       fit: BoxFit.cover,
@@ -55,20 +55,20 @@ class TicketDetailScreen extends StatelessWidget {
                   children: [
                     Text(
                       ticket.title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'IBMPlexSansArabic',
-                        color: Color(0xFF111827),
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       ticket.ticketId,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13,
                         fontFamily: 'IBMPlexSansArabic',
-                        color: Color(0xFF9CA3AF),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -77,16 +77,16 @@ class TicketDetailScreen extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF3F4F6),
+                            color: Theme.of(context).colorScheme.surfaceContainerHighest,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             ticket.category,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'IBMPlexSansArabic',
-                              color: Color(0xFF6B7280),
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                             ),
                           ),
                         ),
@@ -114,11 +114,11 @@ class TicketDetailScreen extends StatelessWidget {
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -132,8 +132,8 @@ class TicketDetailScreen extends StatelessWidget {
                           fontSize: 14,
                           fontFamily: 'IBMPlexSansArabic',
                           color: ticket.description.isNotEmpty
-                              ? const Color(0xFF374151)
-                              : const Color(0xFF9CA3AF),
+                              ? Theme.of(context).colorScheme.onSurface
+                              : Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                           height: 1.6,
                         ),
                       ),

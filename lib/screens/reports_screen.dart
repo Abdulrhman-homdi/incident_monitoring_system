@@ -77,7 +77,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: _isLoading
             ? const Center(child: CircularProgressIndicator())
@@ -98,7 +98,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   Widget _buildHeader() {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -123,13 +123,13 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ),
               ),
               const Spacer(),
-              const Text(
+              Text(
                 'البلاغات',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'IBMPlexSansArabic',
-                  color: Color(0xFF111827),
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
             ],
@@ -140,24 +140,24 @@ class _ReportsScreenState extends State<ReportsScreen> {
             textDirection: TextDirection.rtl,
             decoration: InputDecoration(
               hintText: 'ابحث عن البلاغ',
-              hintStyle: const TextStyle(
+              hintStyle: TextStyle(
                 fontFamily: 'IBMPlexSansArabic',
                 fontSize: 14,
-                color: Color(0xFF9CA3AF),
+                color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
               ),
-              suffixIcon: const Icon(
+              suffixIcon: Icon(
                 Icons.search,
-                color: Color(0xFF9CA3AF),
+                color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
               ),
               filled: true,
-              fillColor: Colors.white,
+              fillColor: Theme.of(context).cardColor,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: BorderSide(color: Theme.of(context).dividerColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: BorderSide(color: Theme.of(context).dividerColor),
               ),
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 14,
@@ -172,7 +172,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   Widget _buildCategoryFilter() {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.only(bottom: 16),
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -193,12 +193,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   decoration: BoxDecoration(
                     color: isActive
                         ? const Color(0xFF1B8354)
-                        : const Color(0xFFF3F4F6),
+                        : Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(
                       color: isActive
                           ? const Color(0xFF1B8354)
-                          : const Color(0xFFE5E7EB),
+                          : Theme.of(context).dividerColor,
                     ),
                   ),
                   child: Text(
@@ -207,7 +207,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'IBMPlexSansArabic',
-                      color: isActive ? Colors.white : const Color(0xFF6B7280),
+                      color: isActive ? Colors.white : Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ),
@@ -221,7 +221,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   Widget _buildStatusCards() {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -270,7 +270,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                         fontFamily: 'IBMPlexSansArabic',
                         color: isActive
                             ? Color(status.color)
-                            : const Color(0xFF6B7280),
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -294,11 +294,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
             padding: const EdgeInsets.only(bottom: 12),
             child: Text(
               _sectionTitle,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 fontFamily: 'IBMPlexSansArabic',
-                color: Color(0xFF111827),
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),
@@ -340,11 +340,11 @@ class _TicketCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -379,14 +379,14 @@ class _TicketCard extends StatelessWidget {
                         width: 56,
                         height: 56,
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: Theme.of(context).dividerColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Icon(
                             Icons.image_not_supported_outlined,
                             size: 24,
-                            color: Colors.grey[400],
+                            color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                           ),
                         ),
                       ),
@@ -397,20 +397,20 @@ class _TicketCard extends StatelessWidget {
                   children: [
                     Text(
                       ticket.ticketId,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
                         fontFamily: 'IBMPlexSansArabic',
-                        color: Color(0xFF9CA3AF),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       ticket.title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'IBMPlexSansArabic',
-                        color: Color(0xFF111827),
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ],
@@ -460,9 +460,9 @@ class _TicketCard extends StatelessWidget {
                       }
                     },
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF9FAFB),
+                      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                       foregroundColor: const Color(0xFF1B8354),
-                      side: const BorderSide(color: Color(0xFFE5E7EB)),
+                      side: BorderSide(color: Theme.of(context).dividerColor),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -496,40 +496,40 @@ class _EmptyState extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         children: [
-          Text(
+          const Text(
             '🎉',
             style: TextStyle(fontSize: 48),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             'لا توجد بلاغات جديدة حالياً',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               fontFamily: 'IBMPlexSansArabic',
-              color: Color(0xFF111827),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'تم الانتهاء من جميع البلاغات، وسيتم إشعارك فور ورود بلاغ جديد.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 13,
               fontFamily: 'IBMPlexSansArabic',
-              color: Color(0xFF6B7280),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
         ],
