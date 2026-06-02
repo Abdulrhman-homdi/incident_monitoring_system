@@ -6,13 +6,13 @@ import '../models/ticket_model.dart';
 class ApiService {
   static String get baseUrl {
     if (kIsWeb) {
-      return 'http://127.0.0.1:5001/api/tickets';
+      return 'https://balady-api.onrender.com/api/tickets';
     }
     if (defaultTargetPlatform == TargetPlatform.iOS ||
         defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://192.168.0.135:5001/api/tickets';
+      return 'https://balady-api.onrender.com/api/tickets';
     }
-    return 'http://127.0.0.1:5001/api/tickets';
+    return 'https://balady-api.onrender.com/api/tickets';
   }
 
   static Future<List<Ticket>> fetchTickets() async {
