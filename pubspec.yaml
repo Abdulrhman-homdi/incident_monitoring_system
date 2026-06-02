@@ -70,8 +70,8 @@ flutter:
   
   # 1) تعريف الصور والأصول
   assets:
-    - assets/images/logo.png
-    - assets/images/icon.svg # تم تعريف أيقونة التطبيق هنا أيضاً ليتعرف عليها المشروع
+    - assets/images/icon_light.png
+    - assets/images/icon_dark.png
 
   # 2) تعريف الخطوط (لتحقيق المظهر الاحترافي)
   fonts:
