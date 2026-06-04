@@ -193,7 +193,12 @@ class LoginScreen extends StatelessWidget {
 
             Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MainShell()),
+                  );
+                },
 
                 child: Text(
                   "الدخول كزائر",
