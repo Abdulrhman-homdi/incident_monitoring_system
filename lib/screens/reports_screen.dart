@@ -71,7 +71,10 @@ class _ReportsScreenState extends State<ReportsScreen> {
       if (_selectedCategory > 0 && t.category != _categories[_selectedCategory]) {
         return false;
       }
-      if (_selectedStatus > 0 && t.status != _statuses[_selectedStatus].label) {
+      if (_selectedStatus == 0) {
+        return t.status != 'منتهي';
+      }
+      if (t.status != _statuses[_selectedStatus].label) {
         return false;
       }
       return true;

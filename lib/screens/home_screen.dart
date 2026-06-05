@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final activeTickets = _tickets.where((t) => t.status != 'منتهي').toList();
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -61,9 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             children: [
                               const _SearchBar(),
-                              _KpiSection(totalTickets: _tickets.length),
-                              _StatusCarousel(tickets: _tickets),
-                              _RecentTickets(tickets: _tickets, isGuest: widget.isGuest),
+                              _KpiSection(totalTickets: activeTickets.length),
+                              _StatusCarousel(tickets: activeTickets),
+                              _RecentTickets(tickets: activeTickets, isGuest: widget.isGuest),
                             ],
                           ),
                         ),
