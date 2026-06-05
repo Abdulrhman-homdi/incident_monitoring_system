@@ -33,15 +33,22 @@ class ApiService {
     required String action,
     String details = '',
     String assignee = '',
+    String escalationReason = '',
+    String targetEntity = '',
   }) async {
+    final payload = {
+      'action': action,
+      'details': details,
+      'assignee': assignee,
+    };
+    if (action == 'تصعيد') {
+      payload['escalationReason'] = escalationReason;
+      payload['targetEntity'] = targetEntity;
+    }
     final response = await http.put(
       Uri.parse('$baseUrl/action/$id'),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'action': action,
-        'details': details,
-        'assignee': assignee,
-      }),
+      body: jsonEncode(payload),
     );
     if (response.statusCode == 200) {
       final Map<String, dynamic> body = jsonDecode(response.body);

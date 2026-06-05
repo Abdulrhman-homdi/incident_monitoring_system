@@ -151,9 +151,14 @@ export default function App() {
     }
   };
 
-  const handleTicketAction = async (id, action, details = '', assignee = '') => {
+  const handleTicketAction = async (id, action, details = '', assignee = '', escalationReason = '', targetEntity = '') => {
     try {
-      const res = await axios.put(`${API_BASE}/tickets/action/${id}`, { action, details, assignee });
+      const payload = { action, details, assignee };
+      if (action === 'تصعيد') {
+        payload.escalationReason = escalationReason;
+        payload.targetEntity = targetEntity;
+      }
+      const res = await axios.put(`${API_BASE}/tickets/action/${id}`, payload);
       if (res.data && res.data.success) {
         await fetchTickets();
         setSelectedTicket(res.data.data);
@@ -518,6 +523,13 @@ function DetailModal({ ticket, onAction, onClose }) {
   const isCompleted = ticket.status === 'منتهي';
   const [assigneeInput, setAssigneeInput] = useState('');
   const [inquiryInput, setInquiryInput] = useState('');
+  const [escalationReason, setEscalationReason] = useState('');
+  const [escalationEntity, setEscalationEntity] = useState('');
+
+  const escalateReasons = [
+    'خارج الصلاحية', 'خطورة عالية', 'دعم قانوني', 'دعم أمني',
+    'موارد إضافية', 'تكرار عالي', 'تعارض مصالح', 'أخرى',
+  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={onClose}>
@@ -627,12 +639,60 @@ function DetailModal({ ticket, onAction, onClose }) {
                   </button>
                 )}
                 {(isInProgress || isNew) && (
-                  <button onClick={() => onAction(ticket._id, 'تصعيد')} className="flex items-center gap-1.5 px-4 py-2 bg-purple-600 text-white rounded-lg text-xs font-bold hover:bg-purple-700 transition-colors">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                    </svg>
-                    تصعيد
-                  </button>
+                  <div className="relative group">
+                    <button className="flex items-center gap-1.5 px-4 py-2 bg-purple-600 text-white rounded-lg text-xs font-bold hover:bg-purple-700 transition-colors">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                      </svg>
+                      تصعيد
+                    </button>
+                    <div className="absolute bottom-full left-0 mb-2 hidden group-hover:block w-72">
+                      <div className="bg-white rounded-lg shadow-xl border border-gray-100 p-3 space-y-3">
+                        <div>
+                          <label className="block text-xs font-semibold text-gray-600 mb-1">سبب التصعيد</label>
+                          <select
+                            value={escalationReason}
+                            onChange={(e) => setEscalationReason(e.target.value)}
+                            className="w-full px-3 py-1.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-[#1B8354]"
+                          >
+                            <option value="">اختر السبب</option>
+                            {escalateReasons.map((r) => (
+                              <option key={r} value={r}>{r}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs font-semibold text-gray-600 mb-1">الجهة المصعد لها</label>
+                          <input
+                            type="text"
+                            value={escalationEntity}
+                            onChange={(e) => setEscalationEntity(e.target.value)}
+                            placeholder="اسم الجهة"
+                            className="w-full px-3 py-1.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-[#1B8354]"
+                          />
+                        </div>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => { setEscalationReason(''); setEscalationEntity(''); }}
+                            className="flex-1 py-1.5 bg-gray-100 text-gray-600 rounded text-xs font-bold hover:bg-gray-200"
+                          >
+                            إلغاء
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (escalationReason && escalationEntity.trim()) {
+                                onAction(ticket._id, 'تصعيد', '', '', escalationReason, escalationEntity.trim());
+                                setEscalationReason(''); setEscalationEntity('');
+                              }
+                            }}
+                            className="flex-1 py-1.5 bg-purple-600 text-white rounded text-xs font-bold hover:bg-purple-700"
+                          >
+                            تصعيد
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 )}
                 <div className="relative group">
                   <button className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white rounded-lg text-xs font-bold hover:bg-blue-700 transition-colors">

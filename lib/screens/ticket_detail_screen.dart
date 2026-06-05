@@ -24,6 +24,11 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
   final TextEditingController _assigneeController = TextEditingController();
   final TextEditingController _inquiryController = TextEditingController();
 
+  final List<String> _escalateReasons = [
+    'خارج الصلاحية', 'خطورة عالية', 'دعم قانوني', 'دعم أمني',
+    'موارد إضافية', 'تكرار عالي', 'تعارض مصالح', 'أخرى',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +42,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     super.dispose();
   }
 
-  Future<void> _handleAction(String action, {String details = '', String assignee = ''}) async {
+  Future<void> _handleAction(String action, {String details = '', String assignee = '', String escalationReason = '', String targetEntity = ''}) async {
     setState(() => _actionLoading = true);
     try {
       final updated = await ApiService.performAction(
@@ -45,6 +50,8 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
         action: action,
         details: details,
         assignee: assignee,
+        escalationReason: escalationReason,
+        targetEntity: targetEntity,
       );
       if (mounted) {
         setState(() => _ticket = updated);
@@ -125,6 +132,74 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showEscalatePopup() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        String selectedReason = '';
+        final entityController = TextEditingController();
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: StatefulBuilder(
+            builder: (context, setDialogState) => AlertDialog(
+              title: const Text('تصعيد البلاغ'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text('سبب التصعيد', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    value: selectedReason.isEmpty ? null : selectedReason,
+                    decoration: const InputDecoration(
+                      hintText: 'اختر السبب',
+                      border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    ),
+                    items: _escalateReasons.map((r) => DropdownMenuItem(value: r, child: Text(r))).toList(),
+                    onChanged: (v) => setDialogState(() => selectedReason = v ?? ''),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('الجهة المصعد لها', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: entityController,
+                    decoration: const InputDecoration(
+                      hintText: 'اسم الجهة',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: const Text('إلغاء'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (selectedReason.isNotEmpty && entityController.text.trim().isNotEmpty) {
+                      Navigator.pop(ctx);
+                      _handleAction('تصعيد',
+                        escalationReason: selectedReason,
+                        targetEntity: entityController.text.trim(),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF7C3AED),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text('تصعيد'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -628,7 +703,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                   label: 'تصعيد',
                   icon: Icons.vertical_align_top,
                   color: const Color(0xFF7C3AED),
-                  onTap: () => _handleAction('تصعيد'),
+                  onTap: _showEscalatePopup,
                 ),
               _actionButton(
                 label: 'تعيين',

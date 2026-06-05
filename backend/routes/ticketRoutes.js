@@ -119,7 +119,7 @@ router.put('/progress/:id', async (req, res) => {
 // 6. تنفيذ إجراء على البلاغ (PUT)
 router.put('/action/:id', async (req, res) => {
   try {
-    const { action, details, assignee } = req.body;
+    const { action, details, assignee, escalationReason, targetEntity } = req.body;
     const ticket = await Ticket.findById(req.params.id);
     if (!ticket) {
       return res.status(404).json({ success: false, message: 'البلاغ غير موجود' });
@@ -134,10 +134,18 @@ router.put('/action/:id', async (req, res) => {
 
     const newStatus = statusMap[action] || ticket.status;
     ticket.status = newStatus;
+
+    let logDetails = details || '';
+    if (action === 'تصعيد') {
+      const reason = escalationReason || 'غير محدد';
+      const entity = targetEntity || 'غير محدد';
+      logDetails = `سبب التصعيد: ${reason}\nالجهة المصعد لها: ${entity}`;
+    }
+
     ticket.progressLog.push({
       action,
-      details: details || '',
-      assignee: assignee || '',
+      details: logDetails,
+      assignee: action === 'تصعيد' ? targetEntity || '' : (assignee || ''),
       createdAt: new Date(),
     });
     if (action === 'تعيين' && assignee) {
