@@ -43,7 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final activeTickets = _tickets.where((t) => t.status != 'منتهي').toList();
+    const priority = {'جديد': 0, 'متأخر': 1, 'مصعد': 2, 'قيد المعالجة': 3};
+    final activeTickets = _tickets
+        .where((t) => t.status != 'منتهي')
+        .toList()
+      ..sort((a, b) => (priority[a.status] ?? 99).compareTo(priority[b.status] ?? 99));
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(

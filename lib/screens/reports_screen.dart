@@ -52,7 +52,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
     for (final t in _tickets) {
       counts[t.status] = (counts[t.status] ?? 0) + 1;
     }
+    final allCount = _tickets.where((t) => t.status != 'منتهي').length;
     return [
+      _StatusData(label: 'الكل', count: allCount, color: AppColors.lightPrimary),
       _StatusData(label: 'جديد', count: counts['جديد'] ?? 0, color: AppColors.statusNew),
       _StatusData(label: 'قيد المعالجة', count: counts['قيد المعالجة'] ?? 0, color: AppColors.statusInProgress),
       _StatusData(label: 'متأخر', count: counts['متأخر'] ?? 0, color: AppColors.statusDelayed),
@@ -310,7 +312,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
             ),
           ),
           if (filtered.isEmpty)
-            _EmptyState()
+            _selectedStatus == 1
+                ? _NewEmptyState()
+                : _EmptyState()
           else
             ...filtered.map((t) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
@@ -496,6 +500,57 @@ class _TicketCard extends StatelessWidget {
                 ),
               );
             }),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NewEmptyState extends StatelessWidget {
+  const _NewEmptyState();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          const Text(
+            '📋',
+            style: TextStyle(fontSize: 48),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'لا توجد بلاغات جديدة',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'IBMPlexSansArabic',
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'راجع البلاغات التي لم تكتمل',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 13,
+              fontFamily: 'IBMPlexSansArabic',
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
         ],
       ),
